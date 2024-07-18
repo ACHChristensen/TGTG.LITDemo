@@ -26,7 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private static UsernamePasswordAuthenticationToken authenticateAgainstThirdPartyAndGetAuthentication(String name, String password) {
         final List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));// TODO - Handling !!! But for now in fast DEMO; ok...
+        grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));// TODO - Handling !!! But for a fast demonstration; ok...
         final UserDetails principal = new User(name, password, grantedAuths);
         return new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
     }
@@ -35,7 +35,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String name = authentication.getName();
         final String password = authentication.getCredentials().toString();
-        if (!adminUsername.equals(name) || !adminPassword.equals(password)) {
+        if (!adminUsername.equals(name) || !adminPassword.equals(password)) { // TODO - Note: demo quick-fix but not best practise
             return null;
         }
         return authenticateAgainstThirdPartyAndGetAuthentication(name, password);
