@@ -1,14 +1,14 @@
 version: '4'
 
 services:
-  db:
-    image: mysql
+  lit-demo-mysql:
+    image: mysql:8.0.38
     volumes:
       - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: litdemo
-      MYSQL_USER: litadmin
+      MYSQL_USER: tgtg
       MYSQL_PASSWORD_FILE: /run/secrets/db_password
     secrets:
       - db_root_password

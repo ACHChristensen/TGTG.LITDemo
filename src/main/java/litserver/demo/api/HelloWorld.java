@@ -1,6 +1,6 @@
 //TODO - Only for test - TO BE DELETED !
 
-package litserver.demo.infrastructure.api;
+package litserver.demo.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class HelloWorld {
 
-    @CrossOrigin(origins = "*") //TODO - TO BE CHANGED
+    //@CrossOrigin //TODO - NOTE DELETE?
     @GetMapping(path = "/helloworld", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity testingHelloHorld() {
          String hellotest = "Hello world";
