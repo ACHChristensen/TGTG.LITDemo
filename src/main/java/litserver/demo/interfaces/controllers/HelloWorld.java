@@ -1,6 +1,6 @@
 //TODO - Only for test - TO BE DELETED !
 
-package litserver.demo.api;
+package litserver.demo.interfaces.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
