@@ -16,7 +16,7 @@ public class FoodCondition {
     private String condition;
 
     @Column()
-    private String foodRecommendation;
+    private String expireRecommendation;
 
     @OneToMany(mappedBy = "foodCondition")
     private List<FoodQuantity> foodQuantity;
@@ -33,11 +33,11 @@ public class FoodCondition {
         this.condition = condition;
     }
 
-    public String getFoodRecommendation() {
-        return foodRecommendation;
+    public String getExpireRecommendation() {
+        return expireRecommendation;
     }
 
-    public void setFoodRecommendation(String foodRecommendation) {
-        this.foodRecommendation = foodRecommendation;
+    public void setExpireRecommendation(String expireRecommendation) {
+        this.expireRecommendation = expireRecommendation;
     }
 }

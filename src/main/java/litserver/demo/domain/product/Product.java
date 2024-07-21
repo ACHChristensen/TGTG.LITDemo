@@ -75,6 +75,7 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
     //TODO   private float getGrossPrice(float netPrice);
 
 
