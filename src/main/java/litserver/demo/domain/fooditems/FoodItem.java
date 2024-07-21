@@ -1,11 +1,10 @@
 package litserver.demo.domain.fooditems;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import litserver.demo.domain.product.Product;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "food_item")
@@ -16,6 +15,9 @@ public class FoodItem extends Product {
 
     @Column()
     private Date expirationDate;
+
+    @OneToMany(mappedBy = "foodItem")
+    private List<FoodQuantity> foodQuantity;
 
     // TODO pantry_min pantry_tips	pantry_max	pantry_metric	refrigerate_min	refrigerate_max	refrigerate_tips	freeze_min	freeze_max	freeze_tips
 

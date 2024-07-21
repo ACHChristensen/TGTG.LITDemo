@@ -2,6 +2,8 @@ package litserver.demo.domain.fooditems;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "food_condition")
 public class FoodCondition {
@@ -15,6 +17,9 @@ public class FoodCondition {
 
     @Column()
     private String foodRecommendation;
+
+    @OneToMany(mappedBy = "foodCondition")
+    private List<FoodQuantity> foodQuantity;
 
     public Integer getId() {
         return id;

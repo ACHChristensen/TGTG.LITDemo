@@ -18,7 +18,7 @@ public class Category {
     @Column()
     private String subCategory;
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "category")
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
     public Integer getId() {

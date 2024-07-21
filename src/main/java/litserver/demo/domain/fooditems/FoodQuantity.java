@@ -1,6 +1,7 @@
 package litserver.demo.domain.fooditems;
 
 import jakarta.persistence.*;
+import litserver.demo.domain.product.Category;
 
 @Entity
 @Table(name = "food_quantity")
@@ -15,6 +16,14 @@ public class FoodQuantity {
 
     @Column()
     private String note;
+
+    @ManyToOne
+    @JoinColumn(name = "food_Item_id")
+    private FoodItem foodItem;
+
+    @ManyToOne
+    @JoinColumn(name = "food_condition_id")
+    private FoodCondition foodCondition;
 
     public Integer getId() {
         return id;
