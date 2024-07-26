@@ -1,14 +1,15 @@
 package litserver.demo.domain.fooditems;
 
 import jakarta.persistence.*;
-import litserver.demo.domain.product.Category;
+
 
 @Entity
-@Table(name = "food_quantity")
+@Table(name = "food_quantities")
 public class FoodQuantity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "food_quantity_id", nullable = false)
     private Integer id;
 
     @Column(nullable = false)
@@ -17,12 +18,12 @@ public class FoodQuantity {
     @Column()
     private String note;
 
-    @ManyToOne
-    @JoinColumn(name = "food_Item_id")
+    @ManyToOne()
+    @JoinColumn(name = "food_items")
     private FoodItem foodItem;
 
-    @ManyToOne
-    @JoinColumn(name = "food_condition_id")
+    @ManyToOne()
+    @JoinColumn(name = "food_conditions")
     private FoodCondition foodCondition;
 
     public Integer getId() {

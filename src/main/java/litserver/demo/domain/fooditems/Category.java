@@ -1,12 +1,15 @@
-package litserver.demo.domain.product;
+package litserver.demo.domain.fooditems;
 
 import jakarta.persistence.*;
+import litserver.demo.domain.fooditems.FoodItem;
 
 import java.util.List;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,7 +22,7 @@ public class Category {
     private String subCategory;
 
     @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    private List<FoodItem> foodItems;
 
     public Integer getId() {
         return id;
@@ -41,11 +44,11 @@ public class Category {
         this.subCategory = subCategory;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<FoodItem> getFoodItems() {
+        return foodItems;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setFoodItems(List<FoodItem> foodItems) {
+        this.foodItems = foodItems;
     }
 }

@@ -4,16 +4,18 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
 @Entity
-@Table(name = "food_condition")
+@Table(name = "food_conditions")
 public class FoodCondition {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "food_condition_id", nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
-    private String condition;
+    @Column(nullable = false, unique = true)
+    private String foodCondition;
 
     @Column()
     private String foodRecommendation;
@@ -25,12 +27,12 @@ public class FoodCondition {
         return id;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getFoodCondition() {
+        return foodCondition;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setFoodCondition(String foodCondition) {
+        this.foodCondition = foodCondition;
     }
 
     public String getFoodRecommendation() {
@@ -40,4 +42,6 @@ public class FoodCondition {
     public void setFoodRecommendation(String foodRecommendation) {
         this.foodRecommendation = foodRecommendation;
     }
+
+
 }
