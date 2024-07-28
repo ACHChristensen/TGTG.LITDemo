@@ -1,25 +1,25 @@
-package litserver.demo.domain.fooditems;
+package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "food_quantities")
-public class FoodQuantity {
+@Table(name = "food")
+public class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "food_quantity_id", nullable = false)
+    @Column(name = "food_id", nullable = false)
     private Integer id;
 
     @Column(nullable = false)
-    private Integer quantiiy;
+    private Integer quantity;
 
     @Column()
     private String note;
 
     @ManyToOne()
-    @JoinColumn(name = "food_items")
+    @JoinColumn(name = "food")
     private FoodItem foodItem;
 
     @ManyToOne()
@@ -30,12 +30,12 @@ public class FoodQuantity {
         return id;
     }
 
-    public Integer getQuantiiy() {
-        return quantiiy;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQuantiiy(Integer guantiiy) {
-        this.quantiiy = guantiiy;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getNote() {

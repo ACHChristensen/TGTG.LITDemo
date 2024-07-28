@@ -1,7 +1,6 @@
-package litserver.demo.domain.fooditems;
+package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
-import litserver.demo.domain.fooditems.FoodItem;
 
 import java.util.List;
 

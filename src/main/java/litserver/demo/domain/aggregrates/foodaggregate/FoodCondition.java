@@ -1,4 +1,4 @@
-package litserver.demo.domain.fooditems;
+package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
 
@@ -21,7 +21,7 @@ public class FoodCondition {
     private String foodRecommendation;
 
     @OneToMany(mappedBy = "foodCondition")
-    private List<FoodQuantity> foodQuantity;
+    private List<Food> food;
 
     public Integer getId() {
         return id;

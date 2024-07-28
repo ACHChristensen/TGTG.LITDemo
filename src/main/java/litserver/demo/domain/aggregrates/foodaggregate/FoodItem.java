@@ -1,4 +1,4 @@
-package litserver.demo.domain.fooditems;
+package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
 
@@ -22,7 +22,7 @@ public class FoodItem {
     private Date expirationDate;
 
     @OneToMany(mappedBy = "foodItem")
-    private List<FoodQuantity> foodQuantity;
+    private List<Food> food;
 
     @Column()
     private String typeName;
