@@ -1,4 +1,4 @@
-package litserver.demo.application.contracts;
+package litserver.demo.infrastructure.repositories;
 
 import litserver.demo.domain.aggregrates.foodaggregate.Food;
 import org.springframework.data.repository.CrudRepository;
