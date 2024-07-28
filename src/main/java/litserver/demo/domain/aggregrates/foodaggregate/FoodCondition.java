@@ -2,12 +2,19 @@ package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Table(name = "food_conditions")
 public class FoodCondition {
+
+    public FoodCondition(String foodCondition, String foodRecommendation) {
+        this.foodCondition = foodCondition;
+        this.foodRecommendation = foodRecommendation;
+        this.food = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

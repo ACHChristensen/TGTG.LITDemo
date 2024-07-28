@@ -2,12 +2,18 @@ package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class FoodCategory {
 
+    public FoodCategory(String name, String subCategory) {
+        this.name = name;
+        this.subCategory = subCategory;
+        this.foodItems = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +26,7 @@ public class Category {
     @Column()
     private String subCategory;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "foodCategory")
     private List<FoodItem> foodItems;
 
     public Integer getId() {

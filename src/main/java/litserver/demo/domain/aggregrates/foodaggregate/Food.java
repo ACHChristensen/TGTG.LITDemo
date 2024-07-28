@@ -16,7 +16,10 @@ public class Food {
     private Integer quantity;
 
     @Column()
-    private String note;
+    private double discountPrice;
+
+    @Column()
+    private double discountPercent;
 
     @ManyToOne()
     @JoinColumn(name = "food")
@@ -38,12 +41,36 @@ public class Food {
         this.quantity = quantity;
     }
 
-    public String getNote() {
-        return note;
+    public double getDiscountPrice() {
+        return discountPrice;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public FoodItem getFoodItem() {
+        return foodItem;
+    }
+
+    public void setFoodItem(FoodItem foodItem) {
+        this.foodItem = foodItem;
+    }
+
+    public FoodCondition getFoodCondition() {
+        return foodCondition;
+    }
+
+    public void setFoodCondition(FoodCondition foodCondition) {
+        this.foodCondition = foodCondition;
     }
 
     //TODO - public boolean archeived()
