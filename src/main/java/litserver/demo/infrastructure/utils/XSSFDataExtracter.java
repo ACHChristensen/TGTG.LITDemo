@@ -1,31 +1,32 @@
 package litserver.demo.infrastructure.utils;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
 public class XSSFDataExtracter {
 
-    public static HashMap<Integer,Object> getData(String filepath, String header, Object datatype) throws IOException {
+    //@Value(value = "${foodkeeper_data_path}")
+    private static String foodKeeperDataPath = ".\\FoodKeeper-Data.xls";
+
+    public HashMap<Integer,Object> getData(String header, Object datatype, int sheetIndex) throws IOException {
 
         //obtaining input bytes from a file
-        FileInputStream fileWithFirstNames = new FileInputStream(
-                new File(filepath));
+        FileInputStream fileInputStream = new FileInputStream (this.foodKeeperDataPath);
         //creating workbook instance that refers to .xls file
-        XSSFWorkbook wb=new XSSFWorkbook(fileWithFirstNames);
+        HSSFWorkbook wb=new HSSFWorkbook(fileInputStream);
         //creating a Sheet object to retrieve the object
-        XSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet=wb.getSheetAt(sheetIndex);
         //evaluating cell type
         FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator();
 
-        Row firstRow = sheet.rowIterator().next();
+        Row firstRow = sheet.getRow(0);
         int countColumnIndex = 0;
         for(Cell cell: firstRow){
             if (cell.getStringCellValue().equals(header)) {
@@ -33,28 +34,29 @@ public class XSSFDataExtracter {
             }
             countColumnIndex ++;
         }
-
         HashMap<Integer,Object> data = new HashMap<>();
         int countData = 0;
-        for(Row row: sheet)
-        {
-            Cell cell = row.getCell(countColumnIndex);
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+
+            Cell cell = sheet.getRow(i).getCell(countColumnIndex);
 
             //Validating data from cell
-            switch(formulaEvaluator.evaluateInCell(cell).getCellType())
-            {
-                case Cell.CELL_TYPE_NUMERIC:
-                    if(datatype.getClass() == Integer.class){
-                        countData++;
-                        data.put(countData, cell.getNumericCellValue());
-                    }
-                case Cell.CELL_TYPE_STRING:
-                    if(datatype.getClass() == String.class) {
-                        countData++;
-                        data.put(countData, cell.getStringCellValue());
-                    }
-                case Cell.CELL_TYPE_BLANK:
+            if (cell == null) {
+                countData++;
+                data.put(countData, "");
+            } else {
+
+
+                if (datatype.getClass() == Integer.class) {
+                    int noDecimalNumber = Integer.parseInt((cell.getNumericCellValue() +"").replace(".0", ""));
                     countData++;
+                    data.put(countData, noDecimalNumber);
+                }
+
+                if (datatype.getClass() == String.class) {
+                    countData++;
+                    data.put(countData, cell.getStringCellValue());
+                }
             }
         }
         return data;

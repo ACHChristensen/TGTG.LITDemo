@@ -1,26 +1,17 @@
 package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Data
 @Entity
 @Table(name = "food_items")
 public class FoodItem {
 
-    public FoodItem(Date producedDate, Date expirationDate, String typeName, String subTitle, String brand, float netPrice, FoodCategory foodCategory) {
-        this.producedDate = producedDate;
-        this.expirationDate = expirationDate;
-        this.food = new ArrayList<>();
-        this.typeName = typeName;
-        this.subTitle = subTitle;
-        this.brand = brand;
-        this.netPrice = netPrice;
-        this.foodCategory = foodCategory;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +42,20 @@ public class FoodItem {
     @ManyToOne
     @JoinColumn(name = "categories")
     private FoodCategory foodCategory;
+
+    public FoodItem() {
+
+    }
+    public FoodItem(Date producedDate, Date expirationDate, String typeName, String subTitle, String brand, float netPrice, FoodCategory foodCategory) {
+        this.producedDate = producedDate;
+        this.expirationDate = expirationDate;
+        this.food = new ArrayList<>();
+        this.typeName = typeName;
+        this.subTitle = subTitle;
+        this.brand = brand;
+        this.netPrice = netPrice;
+        this.foodCategory = foodCategory;
+    }
 
     // TODO pantry_min pantry_tips	pantry_max	pantry_metric	refrigerate_min	refrigerate_max	refrigerate_tips	freeze_min	freeze_max	freeze_tips
 

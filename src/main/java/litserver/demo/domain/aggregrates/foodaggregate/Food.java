@@ -1,8 +1,11 @@
 package litserver.demo.domain.aggregrates.foodaggregate;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+import java.io.Serializable;
 
+@Data
 @Entity
 @Table(name = "food")
 public class Food {
@@ -29,6 +32,16 @@ public class Food {
     @JoinColumn(name = "food_conditions")
     private FoodCondition foodCondition;
 
+    public Food() {
+
+    }
+    public Food(Integer quantity, double discountPrice, double discountPercent, FoodItem foodItem, FoodCondition foodCondition) {
+        this.quantity = quantity;
+        this.discountPrice = discountPrice;
+        this.discountPercent = discountPercent;
+        this.foodItem = foodItem;
+        this.foodCondition = foodCondition;
+    }
     public Integer getId() {
         return id;
     }
