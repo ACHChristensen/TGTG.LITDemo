@@ -25,8 +25,8 @@ public class FoodItem {
     @Column()
     private Date expirationDate;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "foodItem", cascade = CascadeType.DETACH)
-    private List<Food> food;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "foodItem")
+    private List<Food> foodGroup;
 
     @Column()
     private String typeName;
@@ -51,7 +51,7 @@ public class FoodItem {
     public FoodItem(Date producedDate, Date expirationDate, String typeName, String subTitle, String brand, float netPrice, FoodCategory foodCategory) {
         this.producedDate = producedDate;
         this.expirationDate = expirationDate;
-        this.food = new ArrayList<>();
+        this.foodGroup = new ArrayList<>();
         this.typeName = typeName;
         this.subTitle = subTitle;
         this.brand = brand;
@@ -109,11 +109,19 @@ public class FoodItem {
         this.netPrice = netPrice;
     }
 
-    public FoodCategory getCategory() {
-        return this.foodCategory;
+    public List<Food> getFoodGroup() {
+        return foodGroup;
     }
 
-    public void setCategory(FoodCategory foodCategory) {
+    public void setFoodGroup(List<Food> foodGroup) {
+        this.foodGroup = foodGroup;
+    }
+
+    public FoodCategory getFoodCategory() {
+        return foodCategory;
+    }
+
+    public void setFoodCategory(FoodCategory foodCategory) {
         this.foodCategory = foodCategory;
     }
 

@@ -1,5 +1,6 @@
 package litserver.demo.api.controllers;
 
+import litserver.demo.application.dtos.DTOConverter;
 import litserver.demo.application.dtos.Food.FoodItemDTO;
 import litserver.demo.application.dtos.Food.FoodDTO;
 import litserver.demo.application.dtos.Model;
@@ -18,39 +19,33 @@ public class FoodController {
     @Autowired
     protected FoodInventoryService foodInventoryService;
 
-    private Model model = new Model();
+    @Autowired
+    public DTOConverter dtoConverter;
 
-    @GetMapping(path = "/all-food/{amountPerPage}/{pageNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
+    //User Story (subtask) - Employees can access a full list of food ordered by expiration dates, ID, type, or brand, displaying all relevant details.
+    @GetMapping(path = "/all-food/{amountPerPage}/{pageIndex}/{sortByDetail}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<FoodDTO> getAllFood(@PathVariable int pageNumber, @PathVariable int amountPerPage) {
+    public List<FoodDTO> getAllFood(@PathVariable int pageIndex, @PathVariable int amountPerPage,
+                                    @PathVariable String sortByDetail, @RequestParam(defaultValue = "ASC") String orderBy) {
+        try {
+            List<Food> foodList = foodInventoryService.getAllFoodGrouped(pageIndex, amountPerPage, sortByDetail, orderBy).stream().toList();
 
-        List<Food> foodList = foodInventoryService.getAllFoodGrouped(pageNumber, amountPerPage).stream().toList();
-        return foodList.stream().map(food -> {
-            FoodDTO foodDTO = convertFoodGroupToDto(food);
-            return foodDTO;
-        }).toList();
+            return foodList.stream().map(food -> {
+                FoodDTO foodDTO = dtoConverter.convertFoodGroupToDto(food);
+                return foodDTO;
+            }).toList();
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     @GetMapping(path = "/inventory-food-amount", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public int getFoodTotalAmount() {
 
         return foodInventoryService.getTotalAmountFromInventory();
-
     }
 
-    private FoodItemDTO convertFoodItemToDto(FoodItem foodItem) {
 
-        ModelMapper modelMapper = model.modelMapper();
-        FoodItemDTO foodItemDTO = modelMapper.map(foodItem, FoodItemDTO.class);
-
-        return foodItemDTO;
-    }
-
-    private FoodDTO convertFoodGroupToDto(Food foodgroup) {
-
-        ModelMapper modelMapper = model.modelMapper();
-        FoodDTO foodDTO = modelMapper.map(foodgroup, FoodDTO.class);
-
-        return foodDTO;
-    }
 }

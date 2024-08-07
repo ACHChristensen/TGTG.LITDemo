@@ -9,6 +9,8 @@ import litserver.demo.infrastructure.repositories.IFoodConditionRepository;
 import litserver.demo.infrastructure.repositories.IFoodItemRepository;
 import litserver.demo.infrastructure.repositories.IFoodRepository;
 import litserver.demo.infrastructure.utils.XSSFDataExtracter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,8 @@ public class DatabaseInit {
     Random random = new Random();
     List<String> companyBrands = new ArrayList<>();
     long timeNow = System.currentTimeMillis();
+
+    Logger logger = LoggerFactory.getLogger(DatabaseInit.class);
 
 
     public final long populate(int foodItemsAmount){
@@ -115,7 +119,7 @@ public class DatabaseInit {
                 System.out.println(this.categoryRepository.count());
             }
         } catch (IOException e) {
-            System.out.println("Missing populating Food Categories");
+            logger.warn("Missing populating Food Categories");
             throw new RuntimeException(e);
         }
     }
@@ -164,7 +168,6 @@ public class DatabaseInit {
                     String randomBrand = companyBrands.get(randomBrandIndex);
 
                     Float priceFromRandomNumberString = Float.valueOf(String.format(Locale.US, "%.2f", (random.nextFloat(1.00F, 100.00F))));
-                    System.out.println("ID " + categoryID);
                     FoodItem foodItem = foodItemRepository.save(
                             new FoodItem(
                                     randomProducedDate, expirationDate, productName, subproductName,
@@ -176,7 +179,7 @@ public class DatabaseInit {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Missing populating Food Items");
+            logger.warn("Missing populating Food Items");
             throw new RuntimeException(e);
         }
 

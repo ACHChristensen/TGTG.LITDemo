@@ -26,13 +26,11 @@ public class Food {
     private double discountPercent;
 
     @ManyToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "food")
-    @JsonIgnoreProperties("food")
+    @JoinColumn(name = "food_item")
     private FoodItem foodItem;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "food_conditions")
-    @JsonIgnoreProperties("food")
+    @ManyToOne()
+    @JoinColumn(name = "food_condition")
     private FoodCondition foodCondition;
 
     public Food() {
@@ -79,6 +77,7 @@ public class Food {
 
     public void setFoodItem(FoodItem foodItem) {
         this.foodItem = foodItem;
+        foodItem.getFoodGroup().add(this);
     }
 
     public FoodCondition getFoodCondition() {
@@ -87,7 +86,10 @@ public class Food {
 
     public void setFoodCondition(FoodCondition foodCondition) {
         this.foodCondition = foodCondition;
+        foodCondition.getFoodGroup().add(this);
     }
 
     //TODO - public boolean archeived()
+
+
 }

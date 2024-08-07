@@ -27,8 +27,8 @@ public class FoodCondition {
     private Boolean hasExpiryDate;
 
 
-    @OneToMany(mappedBy = "foodCondition")
-    private List<Food> food;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "foodCondition")
+    private List<Food> foodGroup;
 
     public FoodCondition() {
 
@@ -38,7 +38,7 @@ public class FoodCondition {
         this.foodCondition = foodCondition;
         this.foodRecommendation = foodRecommendation;
         this.hasExpiryDate = hasExpiryDate;
-        this.food = new ArrayList<>();
+        this.foodGroup = new ArrayList<>();
     }
     public Integer getId() {
         return id;
@@ -68,11 +68,11 @@ public class FoodCondition {
         this.hasExpiryDate = hasExpiryDate;
     }
 
-    public List<Food> getFood() {
-        return food;
+    public List<Food> getFoodGroup() {
+        return foodGroup;
     }
 
-    public void setFood(List<Food> food) {
-        this.food = food;
+    public void setFoodGroup(List<Food> food) {
+        this.foodGroup = food;
     }
 }
