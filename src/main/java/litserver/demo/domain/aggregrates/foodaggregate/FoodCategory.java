@@ -1,5 +1,6 @@
 package litserver.demo.domain.aggregrates.foodaggregate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 

@@ -1,5 +1,6 @@
 package litserver.demo.domain.aggregrates.foodaggregate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,7 +25,7 @@ public class FoodItem {
     @Column()
     private Date expirationDate;
 
-    @OneToMany(mappedBy = "foodItem")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "foodItem", cascade = CascadeType.DETACH)
     private List<Food> food;
 
     @Column()
@@ -39,8 +40,9 @@ public class FoodItem {
     @Column()
     private float netPrice;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "categories")
+    //@JsonIgnoreProperties("foodItems")
     private FoodCategory foodCategory;
 
     public FoodItem() {

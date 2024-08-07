@@ -88,7 +88,7 @@ public class DatabaseInit {
         populateFoodItems(foodItemsAmount);
         populateFoodAmounts();
 
-        return foodRepository.count();
+        return foodItemRepository.count();
     }
     public final void populateCategories(){
         try {
@@ -192,7 +192,7 @@ public class DatabaseInit {
 
             FoodCondition foodCondition;
             if(foodItem.getFoodCategory().getHasWrittenExpiryDate() //If product has an expiry date
-            //&& today.compareTo(foodItem.getExpirationDate()) < 0
+            //&& today.compareTo(foodItem.getExpirationDate()) < 0 // Note for further developing
             ){
                 foodCondition = freshBeforeExpDate;
 

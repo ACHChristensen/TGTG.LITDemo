@@ -1,5 +1,6 @@
 package litserver.demo.domain.aggregrates.foodaggregate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,12 +25,14 @@ public class Food {
     @Column()
     private double discountPercent;
 
-    @ManyToOne()
-    @JoinColumn(name = "food")
+    @ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "food")
+    @JsonIgnoreProperties("food")
     private FoodItem foodItem;
 
-    @ManyToOne()
-    @JoinColumn(name = "food_conditions")
+    @ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "food_conditions")
+    @JsonIgnoreProperties("food")
     private FoodCondition foodCondition;
 
     public Food() {
