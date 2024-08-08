@@ -18,28 +18,29 @@ public class FoodInventoryService {
 
     public Page<Food> getAllFoodGrouped(int page, int size, String sortBy, String orderBy) throws NoSuchFieldException {
 
-        Pageable pageable = validatingDirection(page, size, orderBy);
+        Pageable pageable = validatingDirection(page, size,sortBy, orderBy);
+        System.out.println(sortBy);
 
         if (
                 sortBy.equals("quantity")
-            || sortBy.equals("discount_percent")
-            || sortBy.equals("discount_price")
+            || sortBy.equals("discountPercent")
+            || sortBy.equals("discountPrice")
             || sortBy.equals("id")
         ) {
-            return foodRepository.findAllSorted(pageable, sortBy);
+            return foodRepository.findAllSorted( sortBy, pageable);
         }
         else if (
                 sortBy.equals("brand")
-            || sortBy.equals("expiration_date")
-            || sortBy.equals("net-price")
-            || sortBy.equals("produced-date")
-            || sortBy.equals("type_name")
+            || sortBy.equals("expirationDate")
+            || sortBy.equals("netPrice")
+            || sortBy.equals("producedDate")
+            || sortBy.equals("typeName")
         ) {
-            return foodRepository.findAllSortedByFoodItem(pageable, sortBy);
+            return foodRepository.findAllSortedByFoodItem(sortBy, pageable);
         }
-        else if (sortBy.equals("food_condition"))
+        else if (sortBy.equals("foodDondition"))
         {
-            return foodRepository.findAllSortedByFoodCondition(pageable, sortBy);
+            return foodRepository.findAllSortedByFoodCondition(sortBy,pageable);
         }
         else{
             throw new NoSuchFieldException("Not defined");
@@ -50,7 +51,8 @@ public class FoodInventoryService {
         return foodRepository.getTotalAmountFromInventory();
     }
 
-    public Pageable validatingDirection(int page, int size ,String orderBy) throws NoSuchFieldException {
+    public Pageable validatingDirection(int page, int size, String sortBy ,String orderBy) throws NoSuchFieldException {
+
         Sort.Direction direction;
         if(orderBy.equals("DESC")){
             direction = Sort.Direction.DESC;
@@ -62,6 +64,6 @@ public class FoodInventoryService {
             throw new NoSuchFieldException("No order like that...");
         }
 
-        return PageRequest.of(page, size, direction);
+        return PageRequest.of(page, size, direction, sortBy);
     }
 }

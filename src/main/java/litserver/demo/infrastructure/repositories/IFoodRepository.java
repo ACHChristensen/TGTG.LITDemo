@@ -8,18 +8,19 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public interface IFoodRepository extends CrudRepository<Food, Integer> {
 
     @Query("SELECT SUM(f.quantity) FROM Food f")
     int getTotalAmountFromInventory();
 
-    @Query("SELECT f FROM Food f ORDER BY #{#sortBy}")
-    Page<Food> findAllSorted(Pageable pageable, @Param("sortBy") String sortBy);
+    @Query("SELECT f FROM Food f ORDER BY :#{#sortBy}")
+    Page<Food> findAllSorted(@Param("sortBy") String sortBy, Pageable pageable);
 
-    @Query("SELECT f FROM Food f, FoodItem fi WHERE fi = f.foodItem ORDER BY fi.#{#sortBy}")
-    Page<Food> findAllSortedByFoodItem(Pageable pageable, @Param("sortBy") String sortBy);
+    @Query("SELECT fi.foodGroup FROM FoodItem fi ORDER BY :#{#sortBy}")
+    Page<Food> findAllSortedByFoodItem(@Param("sortBy") String sortBy, Pageable pageable);
 
-    @Query("SELECT f FROM Food f, FoodCondition fc WHERE f.foodCondition = fc ORDER BY fc.#{#sortBy}")
-    Page<Food> findAllSortedByFoodCondition(Pageable pageable, @Param("sortBy") String sortBy);
+    @Query("SELECT fc.foodGroup FROM FoodCondition fc ORDER BY :#{#sortBy}")
+    Page<Food> findAllSortedByFoodCondition(@Param("sortBy") String sortBy, Pageable pageable);
 }

@@ -22,13 +22,14 @@ public class FoodController {
     @Autowired
     public DTOConverter dtoConverter;
 
-    //User Story (subtask) - Employees can access a full list of food ordered by expiration dates, ID, type, or brand, displaying all relevant details.
+    //User Story - (subtask): Employees can access a full list of food with expiration dates, ID, type, or brand, displaying all relevant details.
+    //User Story - (subtask): Employees can access a list of food and order by expiration dates, ID, type, or brand, displaying all relevant details.
     @GetMapping(path = "/all-food/{amountPerPage}/{pageIndex}/{sortByDetail}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<FoodDTO> getAllFood(@PathVariable int pageIndex, @PathVariable int amountPerPage,
                                     @PathVariable String sortByDetail, @RequestParam(defaultValue = "ASC") String orderBy) {
         try {
-            List<Food> foodList = foodInventoryService.getAllFoodGrouped(pageIndex, amountPerPage, sortByDetail, orderBy).stream().toList();
+            List<Food> foodList = foodInventoryService.getAllFoodGrouped(pageIndex, amountPerPage, sortByDetail, orderBy).getContent();
 
             return foodList.stream().map(food -> {
                 FoodDTO foodDTO = dtoConverter.convertFoodGroupToDto(food);

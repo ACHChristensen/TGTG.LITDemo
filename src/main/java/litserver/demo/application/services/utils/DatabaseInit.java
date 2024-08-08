@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.*;
 
 @Configuration
@@ -116,7 +115,6 @@ public class DatabaseInit {
                     FoodCategory foodCategory = new FoodCategory(category_name, subcategory_name, hasWrittenExpiryDate);
                     this.categoryRepository.save(foodCategory);
                 }
-                System.out.println(this.categoryRepository.count());
             }
         } catch (IOException e) {
             logger.warn("Missing populating Food Categories");
@@ -188,7 +186,6 @@ public class DatabaseInit {
 
         FoodCondition fresh = foodConditionRepository.getConditionsWithNOExpiryDateAndRecommendation( "").get(); //Has not expiry date
         FoodCondition freshBeforeExpDate = foodConditionRepository.getConditionsWithExpiryDateAndRecommendation("").get(); //Has expiry date
-        Date today = new Date(timeNow);
 
         foodItems.forEach((foodItem) -> {
             int quantity = random.nextInt(1,40+1);
