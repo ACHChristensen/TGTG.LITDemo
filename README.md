@@ -19,8 +19,9 @@ I use IntellJ as IDE. To setup the DEMO I recommend to follow these if you are u
 - Clone the project (e.g. in terminal *git clone {repo}*)
 - In *src/main/resources* make an application.properties file
 
-The application.properties should contain:
+##### The application.properties should contain:
 
+----
 *spring.application.name=lit.server*
 *server.port=8080*
 *lit.security.demo.login.username={username_for_access_api}*
@@ -39,10 +40,12 @@ The application.properties should contain:
 *spring.jpa.show-sql=true*
 *spring.jpa.hibernate.ddl-auto={update/create/drop_create/ect.}* 
 
-
+------
 #### (More explanation to come...)
 There will be  uploaded a docker container with 'dummy data' as you can use for these project as soon as possible.
 
+
+----
 ### User Stories
 The functionalities of this project are detailed as User Stories. 
 These User Stories are documented within [this agile development board](https://github.com/users/ACHChristensen/projects/1) to facilitate tracking and implementation. 
