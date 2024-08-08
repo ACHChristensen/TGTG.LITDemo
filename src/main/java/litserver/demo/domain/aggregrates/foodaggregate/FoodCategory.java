@@ -1,13 +1,17 @@
-package litserver.demo.domain.fooditems;
+package litserver.demo.domain.aggregrates.foodaggregate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import litserver.demo.domain.fooditems.FoodItem;
+import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "categories")
-public class Category {
+public class FoodCategory {
+
 
 
     @Id
@@ -21,8 +25,22 @@ public class Category {
     @Column()
     private String subCategory;
 
-    @OneToMany(mappedBy = "category")
+    @Column()
+    private Boolean hasWrittenExpiryDate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodCategory", cascade = CascadeType.DETACH)
     private List<FoodItem> foodItems;
+
+    public FoodCategory() {
+
+    }
+
+    public FoodCategory(String name, String subCategory, boolean hasWrittenExpiryDate) {
+        this.name = name;
+        this.subCategory = subCategory;
+        this.hasWrittenExpiryDate = hasWrittenExpiryDate;
+        this.foodItems = new ArrayList<>();
+    }
 
     public Integer getId() {
         return id;
@@ -46,6 +64,14 @@ public class Category {
 
     public List<FoodItem> getFoodItems() {
         return foodItems;
+    }
+
+    public Boolean getHasWrittenExpiryDate() {
+        return hasWrittenExpiryDate;
+    }
+
+    public void setHasWrittenExpiryDate(Boolean hasWrittenExpiryDate) {
+        this.hasWrittenExpiryDate = hasWrittenExpiryDate;
     }
 
     public void setFoodItems(List<FoodItem> foodItems) {

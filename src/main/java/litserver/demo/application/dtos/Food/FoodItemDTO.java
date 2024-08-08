@@ -1,46 +1,32 @@
-package litserver.demo.domain.fooditems;
+package litserver.demo.application.dtos.Food;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.sql.Date;
-import java.util.List;
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class FoodItemDTO {
 
-
-@Entity
-@Table(name = "food_items")
-public class FoodItem {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "food_item_id", nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
     private Date producedDate;
 
-    @Column()
     private Date expirationDate;
 
-    @OneToMany(mappedBy = "foodItem")
-    private List<FoodQuantity> foodQuantity;
-
-    @Column()
     private String typeName;
 
-    @Column()
     private String subTitle;
 
-    @Column()
     private String brand;
 
-    @Column()
     private float netPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "categories")
-    private Category category;
+    public Integer getId() {
+        return id;
+    }
 
-    // TODO pantry_min pantry_tips	pantry_max	pantry_metric	refrigerate_min	refrigerate_max	refrigerate_tips	freeze_min	freeze_max	freeze_tips
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Date getProducedDate() {
         return producedDate;
@@ -89,18 +75,4 @@ public class FoodItem {
     public void setNetPrice(float netPrice) {
         this.netPrice = netPrice;
     }
-
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    //TODO   private float getGrossPrice(float netPrice);
-    //TODO public Date recommendTimeOverdue()
-    //TODO public int DaysBeforeExpirationDate()
-
-
 }
